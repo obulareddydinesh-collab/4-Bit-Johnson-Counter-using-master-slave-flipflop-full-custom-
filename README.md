@@ -111,4 +111,9 @@ Virtuoso Visualization & Analysis XL (waveform viewing)
 GPDK 90 nm process design kit
 ---
 Author
-Your Name — Your College / Department
+**O.ReddyDinesh**<br>
+Department of ECE,IIITDM Kurnool<br>
+
+**Under the Guidance of:-** <br>
+**Dr.P.Rangababu**
+Associate Professor, Department of ECE, IIITDM Kurnool
