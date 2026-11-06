@@ -59,7 +59,10 @@ Layout of the NAND gate (`nand_transmission` cell). It contains the input invert
 3. D Flip-Flop Layout
 ![D Flip-Flop Layout](layout/d_ff_lay.png)
 Layout of the D flip-flop. It places four NAND gate instances and one inverter instance, then routes `D`, `CLK`, the internal nets (`net1`, `net2`, `net3`), and the cross-coupled outputs `Q` and `Q_bar` between them, along with a shared `gnd` rail.
-4. Johnson Counter Layout
+4. Master-Slave D Flip-Flop Layout
+![Master Slave D Flip-Flop Layout](layout/msd_ff_lay.jpeg)
+Layout of the master-slave D flip-flop (`master_slave_d_flipflop` cell). It places two D flip-flop layout instances side by side, the left one acting as the **master** and the right one as the **slave**, each made of four NAND gate instances and one inverter instance. The `Q` output of the master is routed to the `D` input of the slave, and a single inverter at the bottom centre generates the inverted clock for the slave, so the two stages work on opposite clock phases. `D` and `CLK` enter from the left, `Q` and `Q_bar` leave from the right, and a shared `/gnd!/` rail runs along the bottom. The yellow dashed outline is the PR boundary of the cell.
+5. Johnson Counter Layout
 ![Johnson Counter Layout](layout/johnson_lay.png)
 Top-level layout of the Johnson counter. The four master-slave D flip-flop blocks are placed side by side in a row, with the clock distributed to all of them and the `Q` outputs routed to the next stage's input. The `Q_bar` of the last stage is routed back to the first stage's `D` input to complete the feedback loop.
 ---
