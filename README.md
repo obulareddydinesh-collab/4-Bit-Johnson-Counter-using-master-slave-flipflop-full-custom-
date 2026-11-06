@@ -45,27 +45,27 @@ Two D-flipflop stages are cascaded to form an edge-triggered flip-flop. The outp
 Four master-slave D flip-flops (`M_S_D_FF`) are connected in series and share a common clock. The `Q` output of each flip-flop is connected to the `D` input of the next one, giving outputs `Q3`, `Q2`, `Q1`, `Q0`. The complemented output (`Q_bar`) of the last flip-flop is fed back to the `D` input of the first flip-flop, which is the "twist" that defines a Johnson counter. A pulse source (V0, v1 = 1 V, v2 = 0 V) provides the clock for simulation. An n-bit Johnson counter has 2n states, so this 4-bit counter is a mod-8 counter.
 ---
 Symbols
-![Symbols](images/symbols.png)
+![Symbols](symbols/symbols.png)
 Symbols were created for each sub-circuit so they can be used hierarchically in higher-level schematics: the inverter, the 2-input NAND gate, the D-flipflop (inputs `D`, `CLK`; outputs `Q`, `Q_bar`) and the M_S_D_FF (master-slave D flip-flop with the same pins).
 ---
 Layouts
 All layouts were drawn in Virtuoso Layout Suite XL using the `gpdk090` process layers (Nwell, Poly, Pimp/Nimp, Metal1–Metal8, Cont, Vias, etc.).
 1. Inverter Layout
-![Inverter Layout](images/inverter_lay.png)
+![Inverter Layout](layout/inverter_lay.png)
 Layout of the CMOS inverter. The PMOS sits in the Nwell at the top, connected to the `/Vdd/` rail, and the NMOS sits at the bottom, connected to the `/gnd!/` rail. A single shared polysilicon gate forms input `a`, and the drains are joined with Metal1 to form `a_bar`.
 2. NAND Gate Layout
-![NAND Gate Layout](images/nand_lay.png)
+![NAND Gate Layout](layout/nand_lay.png)
 Layout of the NAND gate (`nand_transmission` cell). It contains the input inverters and the PMOS/NMOS transistors, with supply (`/Vdd/`) and ground (`/gnd!/`) rails and internal nets (`net1`, `net3`) routed using Metal1 and higher metal layers. The output is labelled `abar+bbar`.
 3. D Flip-Flop Layout
-![D Flip-Flop Layout](images/d_ff_lay.png)
+![D Flip-Flop Layout](layout/d_ff_lay.png)
 Layout of the D flip-flop. It places four NAND gate instances and one inverter instance, then routes `D`, `CLK`, the internal nets (`net1`, `net2`, `net3`), and the cross-coupled outputs `Q` and `Q_bar` between them, along with a shared `gnd` rail.
 4. Johnson Counter Layout
-![Johnson Counter Layout](images/johnson_lay.png)
+![Johnson Counter Layout](layout/johnson_lay.png)
 Top-level layout of the Johnson counter. The four master-slave D flip-flop blocks are placed side by side in a row, with the clock distributed to all of them and the `Q` outputs routed to the next stage's input. The `Q_bar` of the last stage is routed back to the first stage's `D` input to complete the feedback loop.
 ---
 Simulation Results
 Transient Response
-![Transient Outputs](images/transient_outputs.png)
+![Transient Outputs](Output/transient_outputs.png)
 Transient analysis was run for 100 ns with a clock period of 10 ns. The waveforms show `CLK`, `Q3`, `Q2`, `Q1` and `Q0`. The outputs change on the falling edge of the clock, and each output is a delayed copy of the previous stage. After 8 clock cycles (80 ns) the sequence repeats, confirming correct mod-8 Johnson counter operation:
 `Q2` falls at 10 ns and rises at 50 ns
 `Q1` falls at 20 ns and rises at 60 ns
