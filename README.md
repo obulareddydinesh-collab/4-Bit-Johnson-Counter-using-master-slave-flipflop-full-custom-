@@ -110,10 +110,10 @@ Cadence Spectre (transient simulation)
 Virtuoso Visualization & Analysis XL (waveform viewing)
 GPDK 90 nm process design kit
 ---
-Author
+Author<br>
 **O.ReddyDinesh**<br>
 Department of ECE,IIITDM Kurnool<br>
 
 **Under the Guidance of:-** <br>
-**Dr.P.Rangababu**
+**Dr.P.Rangababu**<br>
 Associate Professor, Department of ECE, IIITDM Kurnool
