@@ -29,19 +29,19 @@ The design is built bottom-up: inverter → NAND gate → D flip-flop → master
 ---
 Schematics
 1. Inverter (NOT Gate)
-![Inverter Schematic](images/inverter.png)
+![Inverter Schematic](schematics/inverter.png)
 The basic building block of the design. It is a CMOS inverter made of one PMOS (`gpdk090_pmos1v`) and one NMOS (`gpdk090_nmos1v`) transistor, with both gates tied to input `a` and both drains tied to output `a_bar`. The PMOS source/bulk is connected to VDD (1 V) and the NMOS source/bulk to ground. Both transistors use W = 120 nm and L = 100 nm. When `a` is high the NMOS conducts and pulls the output low; when `a` is low the PMOS conducts and pulls the output high.
 2. NAND Gate
-![NAND Gate Schematic](images/nand_gate.png)
+![NAND Gate Schematic](schematics/nand_gate.png)
 A 2-input NAND gate (inputs `a`, `b`, output `abar+bbar`, i.e. (a·b)′) implemented at transistor level using the same 90 nm devices. Inverters are used on the inputs along with PMOS/NMOS transistor pairs so that the output goes low only when both inputs are high. This NAND gate is the building block of the D flip-flop's latch.
 3. D Flip-Flop (D Latch built from NAND gates)
-![D Flip-Flop Schematic](images/d_ff.png)
+![D Flip-Flop Schematic](schematics/d_ff.png)
 The D storage element is built from four NAND gates and one inverter. The first two NAND gates form the gating stage: one receives `D` and `CLK`, and the other receives `D̄` (from the inverter) and `CLK`. The last two NAND gates are cross-coupled to form an SR latch that produces the outputs `Q` and `Q_bar`. While `CLK` is high, the output follows `D`; when `CLK` goes low, the latch holds its value.
 4. Master-Slave D Flip-Flop
-![Master Slave D Flip-Flop Schematic](images/msd_ff.png)
+![Master Slave D Flip-Flop Schematic](schematics/msd_ff.png)
 Two D-flipflop stages are cascaded to form an edge-triggered flip-flop. The output of the first stage (master) feeds the `D` input of the second stage (slave). The master receives `CLK` directly, while the slave receives the inverted clock (through an inverter). So the master is transparent while the clock is high and the slave is transparent while the clock is low, which prevents the race-through problem and makes the output change only on the clock's falling edge.
 5. Johnson Counter
-![Johnson Counter Schematic](images/johnson_counter.png)
+![Johnson Counter Schematic](schematics/johnson_counter.png)
 Four master-slave D flip-flops (`M_S_D_FF`) are connected in series and share a common clock. The `Q` output of each flip-flop is connected to the `D` input of the next one, giving outputs `Q3`, `Q2`, `Q1`, `Q0`. The complemented output (`Q_bar`) of the last flip-flop is fed back to the `D` input of the first flip-flop, which is the "twist" that defines a Johnson counter. A pulse source (V0, v1 = 1 V, v2 = 0 V) provides the clock for simulation. An n-bit Johnson counter has 2n states, so this 4-bit counter is a mod-8 counter.
 ---
 Symbols
